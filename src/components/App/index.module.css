@@ -1,10 +1,13 @@
+@value colors: "resources/css/colors.module.css";
+@value grey, black, lightBlue from colors;
+
 .App {
   display: flex;
   flex-direction: column;
   flex: 1;
   text-align: center;
-  background-color: #000;
-  color: #999491;
+  background-color: black;
+  color: grey;
 }
 
 .title {
@@ -15,23 +18,22 @@
 .yearInput {
   padding-bottom: 1.2em;
   display: flex;
-  justify-content: center;    
+  justify-content: center;
 }
-
-.yearInput input {
-  margin: 0 1em;
-}
+  .yearInput input {
+    margin: 0 1em;
+  }
 
 .playButton {
   border: none;
   background: none;
-  color: #999491;
+  color: lightBlue;
   font-size: 1.2em;
   margin: 0 0.5em 0 0;
   padding: 0;
   cursor: pointer;  
 }
 
-.leaflet-container {
+.mapContainer {
   flex: 1;
 }

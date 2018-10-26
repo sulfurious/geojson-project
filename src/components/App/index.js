@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import Leaflet from 'leaflet'
-
-import Choropleth from 'components/Choropleth'
-import './index.css'
 import 'leaflet/dist/leaflet.css'
+
 import { MdPlayCircleOutline, MdPauseCircleOutline } from 'react-icons/md'
+import Choropleth from 'components/Choropleth'
+import  styles from './index.module.css'
 
 Leaflet.Icon.Default.imagePath = 'resources/images/'
 
@@ -15,6 +15,7 @@ class App extends Component {
   }
 
   yearIntervalId = null
+  intervalTime = 1500
 
   componentWillUnmount = () => {
     this.stopTimeline();
@@ -35,7 +36,7 @@ class App extends Component {
   }
 
   startTimeline = () => {
-    this.yearInterval = setInterval(this.incrementYear, 2000)
+    this.yearInterval = setInterval(this.incrementYear, this.intervalTime)
   }
 
   stopTimeline = () => {
@@ -60,17 +61,17 @@ class App extends Component {
     const { year, play } = this.state
 
     return (
-      <div className="App">
-        <div className="title">D.C. Neighborhood Car Crashes</div>
-        <div className="yearInput">
+      <div className={styles.App}>
+        <div className={styles.title}>D.C. Neighborhood Car Crashes</div>
+        <div className={styles.yearInput}>
           Year
           <input onChange={this.onYearChange} value={year} type="range" min="2010" max="2014" step="1" />
-          <button className="playButton" onClick={this.onPlayPause}>
+          <button className={styles.playButton} onClick={this.onPlayPause}>
             {play ? <MdPauseCircleOutline /> : <MdPlayCircleOutline />}
           </button>
           {year} 
         </div>
-        <Choropleth year={year} />
+        <Choropleth className={styles.mapContainer} year={year} />
       </div>
     );
   }

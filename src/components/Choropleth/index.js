@@ -5,12 +5,17 @@ import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import { scaleLinear } from 'd3'
 
 import { data, dataStats, dataCenter } from 'utils/getData'
-import './index.css'
+import styles from './index.module.css'
 
 export default class Choropleth extends Component {
   static propTypes = {
-    year: PropTypes.number.isRequired
+    year: PropTypes.number.isRequired,
+    className: PropTypes.string
   };
+
+  static defaultProps = {
+    className: ''
+  }
 
   initialZoom = 12
   maxFillOpacity = 0.7
@@ -32,12 +37,12 @@ export default class Choropleth extends Component {
   }
 
   render() {
-    const { year } = this.props;
+    const { className, year } = this.props;
 
     return (
-      <Map center={dataCenter} zoom={this.initialZoom}>
+      <Map className={className} center={dataCenter} zoom={this.initialZoom}>
         <TileLayer
-          className="chloropleth"
+          className={styles.chloropleth}
           attribution="&amp;copy <a href=&quot;https://wikimediafoundation.org/wiki/Maps_Terms_of_Use&quot;>Wikimedia</a>"
           url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
         />
