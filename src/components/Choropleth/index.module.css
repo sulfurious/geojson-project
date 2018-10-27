@@ -1,3 +1,7 @@
 .chloropleth > div > img {
   filter: grayscale(80%) invert(100%);
 }
+
+.popup {
+  text-align: center;
+}

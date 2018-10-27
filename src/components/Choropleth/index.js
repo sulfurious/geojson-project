@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import { Map, TileLayer, GeoJSON } from 'react-leaflet'
+import { Map, TileLayer, GeoJSON, ZoomControl } from 'react-leaflet'
 import { scaleLinear } from 'd3'
 
 import { data, dataStats, dataCenter } from 'utils/getData'
@@ -11,7 +11,7 @@ export default class Choropleth extends Component {
   static propTypes = {
     year: PropTypes.number.isRequired,
     className: PropTypes.string
-  };
+  }
 
   static defaultProps = {
     className: ''
@@ -25,7 +25,7 @@ export default class Choropleth extends Component {
   getFillOpacity = (properties, year) => this.fillScale(year)(properties[year])
 
   styleFeature = feature => {
-    const { year } = this.props;
+    const { year } = this.props
     const { properties } = feature
 
     return {
@@ -36,8 +36,22 @@ export default class Choropleth extends Component {
     }
   }
 
+  onEachFeature = (feature, layer) => {
+    const { year } = this.props
+    const count = feature.properties[year]
+
+    layer.bindTooltip(`
+      <div class="${styles.popup}">
+        <h4>
+          <div>${feature.properties.name}</div>
+          ${count ? count : 'none'} in ${year}
+        </h4>
+      </div>
+    `)
+  }
+
   render() {
-    const { className, year } = this.props;
+    const { className, year } = this.props
 
     return (
       <Map className={className} center={dataCenter} zoom={this.initialZoom}>
@@ -46,7 +60,7 @@ export default class Choropleth extends Component {
           attribution="&amp;copy <a href=&quot;https://wikimediafoundation.org/wiki/Maps_Terms_of_Use&quot;>Wikimedia</a>"
           url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
         />
-        <GeoJSON key={year} data={data} style={this.styleFeature} />
+        <GeoJSON key={year} data={data} style={this.styleFeature} onEachFeature={this.onEachFeature} />
       </Map>
     )
   }
