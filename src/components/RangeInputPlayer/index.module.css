@@ -1,0 +1,20 @@
+@value colors: "resources/css/colors.module.css";
+@value black, red from colors;
+
+.container {
+  display: flex;
+}
+
+.rangeInput {
+  margin: 0 1em;
+}
+
+.playButton {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.4em;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  cursor: pointer;  
+}
