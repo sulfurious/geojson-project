@@ -1,0 +1,30 @@
+@value colors: "resources/css/colors.module.css";
+@value black, red from colors;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+  padding: 0.5em;
+  line-height: 1.5em;
+  background-color: red;
+  color: black;
+  font-size: 1.3em;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.search {
+  font-size: 1.6em;
+  color: black;
+  background-color: white;
+  border: 2px solid;
+}
