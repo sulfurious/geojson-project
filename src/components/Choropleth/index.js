@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { Map, TileLayer, GeoJSON, ZoomControl } from 'react-leaflet'
+import { Map, TileLayer, GeoJSON } from 'react-leaflet'
 import { scaleLinear } from 'd3'
 
 import { data, dataStats, dataCenter } from 'utils/getData'
+import Popup from './Popup'
 import styles from './index.module.css'
 
-export default class Choropleth extends Component {
+export default class Choropleth extends PureComponent {
   static propTypes = {
     year: PropTypes.number.isRequired,
     className: PropTypes.string
@@ -17,7 +18,12 @@ export default class Choropleth extends Component {
     className: ''
   }
 
-  initialZoom = 12
+  state = {
+    popupPos: null,
+    popupFeature: null
+  }
+
+  initialZoom = 13
   maxFillOpacity = 0.7
 
   fillScale = year => scaleLinear().domain([dataStats[year].mean, dataStats[year].max]).range([0.2, this.maxFillOpacity])
@@ -36,22 +42,20 @@ export default class Choropleth extends Component {
     }
   }
 
-  onEachFeature = (feature, layer) => {
-    const { year } = this.props
-    const count = feature.properties[year]
+  setPopup = event => {
+    this.setState({
+      popupPos: event ? event.latlng : null,
+      popupFeature: event ? event.target.feature : null
+    })
+  }
 
-    layer.bindTooltip(`
-      <div class="${styles.popup}">
-        <h4>
-          <div>${feature.properties.name}</div>
-          ${count ? count : 'none'} in ${year}
-        </h4>
-      </div>
-    `)
+  onEachFeature = (feature, layer) => {
+    layer.on('click', this.setPopup, this)
   }
 
   render() {
     const { className, year } = this.props
+    const { popupPos, popupFeature } = this.state
 
     return (
       <Map className={className} center={dataCenter} zoom={this.initialZoom}>
@@ -61,6 +65,7 @@ export default class Choropleth extends Component {
           url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
         />
         <GeoJSON key={year} data={data} style={this.styleFeature} onEachFeature={this.onEachFeature} />
+        {popupPos && <Popup position={popupPos} feature={popupFeature} year={year} onClose={this.setPopup} />}
       </Map>
     )
   }
