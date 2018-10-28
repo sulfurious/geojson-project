@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/geojson-project/precache-manifest.e676787507aaeea49099399135430214.js"
+  "/geojson-project/precache-manifest.1dd2da93eb2e7ab4e43c3d65a4c93671.js"
 );
 
 workbox.clientsClaim();
