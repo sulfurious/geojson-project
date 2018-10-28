@@ -5,7 +5,7 @@ import noop from 'utils/noop';
 import { years } from "utils/getData";
 
 import { Popup as LeafletPopup } from 'react-leaflet'
-import { BarChart, Bar, XAxis, YAxis, LabelList } from 'recharts'
+import { BarChart, Bar, XAxis, LabelList } from 'recharts'
 import styles from './popup.module.css'
 
 export default class Popup extends PureComponent {
