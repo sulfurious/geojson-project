@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
-import { MdSearch } from 'react-icons/md'
-import RangeInputPlayer from 'components/RangeInputPlayer'
-import styles from './index.module.css'
+import { dataStats } from "utils/getData"
+
+import { MdSearch, MdViewList } from "react-icons/md"
+import { IoMdGlobe } from "react-icons/io"
+import RangeInputPlayer from "components/RangeInputPlayer"
+import styles from "./index.module.css"
 
 class Header extends Component {
   static propTypes = {
@@ -18,10 +21,20 @@ class Header extends Component {
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <div className={styles.title}>D.C. Neighborhood Car Crashes</div>
-          <RangeInputPlayer value={year} title="Year" onValueChange={onYearChange} min={2010} max={2014} />
+          <RangeInputPlayer
+            value={year}
+            title="Year"
+            onValueChange={onYearChange}
+            min={dataStats.minYear}
+            max={dataStats.maxYear}
+          />
         </div>
-        
-        <MdSearch className={styles.search} />
+
+        <div className={styles.icons}>
+          <MdSearch className={styles.icon} />
+          <IoMdGlobe className={styles.icon} />
+          <MdViewList className={styles.icon} />
+        </div>        
       </div>
     )
   }

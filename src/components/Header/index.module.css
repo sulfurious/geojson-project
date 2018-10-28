@@ -1,5 +1,5 @@
 @value colors: "resources/css/colors.module.css";
-@value black, red from colors;
+@value black, blue from colors;
 
 .header {
   display: flex;
@@ -7,8 +7,8 @@
   align-items: center;  
   padding: 0.5em;
   line-height: 1.5em;
-  background-color: red;
-  color: black;
+  background-color: blue;
+  color: white;
   font-size: 1.3em;
 }
 
@@ -20,11 +20,22 @@
 
 .title {
   font-weight: bold;
+  white-space: nowrap;
 }
 
-.search {
+.icons {
   font-size: 1.6em;
   color: black;
+}
+
+.icon {
   background-color: white;
-  border: 2px solid;
+  border: 1px solid;
+  margin: 0 0.2em;
+}
+
+@media (max-width: 520px) {
+  .header {
+    flex-direction: column;
+  }
 }
