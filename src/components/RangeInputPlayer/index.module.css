@@ -1,5 +1,5 @@
 @value colors: "resources/css/colors.module.css";
-@value black, red from colors;
+@value red from colors;
 
 .container {
   display: flex;
@@ -7,14 +7,31 @@
 
 .rangeInput {
   margin: 0 1em;
+  background: transparent;
+  outline: none;
+  -webkit-appearance: none;
+}
+.rangeInput::-webkit-slider-thumb {
+  background: #fff;
+  height: 18px;
+  width: 18px;
+  margin-top: -8px;
+  border-radius: 99px;
+  -webkit-appearance: none;
+}
+.rangeInput::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 4px;
+  background: #ddd;
 }
 
 .playButton {
   border: none;
   background: none;
-  color: white;
+  color: red;
   font-size: 1.4em;
   margin: 0 0.5em 0 0;
   padding: 0;
-  cursor: pointer;  
+  cursor: pointer;
+  outline: none;
 }

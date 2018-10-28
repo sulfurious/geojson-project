@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
 
-import { MdPlayCircleOutline, MdPauseCircleOutline } from "react-icons/md";
-import styles from "./index.module.css";
+import { MdPlayCircleOutline, MdPauseCircleOutline } from "react-icons/md"
+import styles from "./index.module.css"
 
-class RangeInputPlayer extends Component {
+class RangeInputPlayer extends PureComponent {
   static propTypes = {
     value: PropTypes.number.isRequired,
     min: PropTypes.number.isRequired,
@@ -12,61 +12,61 @@ class RangeInputPlayer extends Component {
     onValueChange: PropTypes.func.isRequired,
     title: PropTypes.string,
     step: PropTypes.number
-  };
+  }
 
   static defaultProps = {
     title: "",
     step: 1
-  };
+  }
 
   state = {
     play: false
-  };
+  }
 
-  intervalId = null;
-  intervalTime = 1500;
+  intervalId = null
+  intervalTime = 1500
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { play } = this.state;
+    const { play } = this.state
 
     if (play !== prevState.play) {
-      play ? this.startTimeline() : this.stopTimeline();
+      play ? this.startTimeline() : this.stopTimeline()
     }
-  };
+  }
 
   componentWillUnmount = () => {
-    this.stopTimeline();
-  };
+    this.stopTimeline()
+  }
 
   incrementValue = () => {
-    const { value, onValueChange, step } = this.props;
-    onValueChange(value === 2014 ? 2010 : value + step);
-  };
+    const { value, onValueChange, min, max, step } = this.props
+    onValueChange(value === max ? min : value + step)
+  }
 
   startTimeline = () => {
-    this.intervalId = setInterval(this.incrementValue, this.intervalTime);
-  };
+    this.intervalId = setInterval(this.incrementValue, this.intervalTime)
+  }
 
   stopTimeline = () => {
-    clearInterval(this.intervalId);
-  };
+    clearInterval(this.intervalId)
+  }
 
   onValueChange = e => {
-    const { onValueChange } = this.props;
-    onValueChange(parseInt(e.target.value, 10));
-  };
+    const { onValueChange } = this.props
+    onValueChange(parseInt(e.target.value, 10))
+  }
 
   onPlayPause = e => {
-    e.preventDefault();
+    e.preventDefault()
 
     this.setState(prevState => ({
       play: !prevState.play
-    }));
-  };
+    }))
+  }
 
   render() {
-    const { title, value, min, max, step } = this.props;
-    const { play } = this.state;
+    const { title, value, min, max, step } = this.props
+    const { play } = this.state
 
     return (
       <div className={styles.container}>
@@ -88,8 +88,8 @@ class RangeInputPlayer extends Component {
 
         {value}
       </div>
-    );
+    )
   }
 }
 
-export default RangeInputPlayer;
+export default RangeInputPlayer
