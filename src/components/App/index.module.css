@@ -1,5 +1,6 @@
 @value colors: "resources/css/colors.module.css";
-@value black from colors;
+@value colors: "resources/css/colors.module.css";
+@value black, grey from colors;
 
 .App {
   display: flex;
